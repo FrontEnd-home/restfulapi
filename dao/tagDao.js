@@ -7,33 +7,27 @@ var _ = require('underscore');
 //exports.setup = function(callback) { callback(null); }
 
 //定义对象模型
-var ArticleScheme = new Schema({
+var TagScheme = new Schema({
     _id:Schema.Types.ObjectId,
-    _category_id:Schema.Types.ObjectId,
-    title:String,
-    desc:String,
     key:String,
-    url:String,
-    icon:String,
-    sort_number:Number,
-    _tag_ids:[Schema.Types.ObjectId],
+    name:String,
+    alias:String,
     _creator_uid:Schema.Types.ObjectId,
-    create_time:Date,
-    update_time:Date
+    create_time:Date
 });
 
-mongoose.model('article', ArticleScheme);
-var Article = mongoose.model('article');
+mongoose.model('tag', TagScheme);
+var Tag = mongoose.model('tag');
 
 
-exports.create = function(article,callback) {
+exports.create = function(tag,callback) {
 
-    var newArticle = new Article();
-    newArticle = _.extend(newArticle, article);
-    newArticle._id = new mongoose.Types.ObjectId;
-    newArticle.create_time = new Date;
-    newArticle.update_time = new Date;
-    newArticle.save(function(err, newArticle){
+    var newTag = new Tag();
+    newTag = _.extend(newTag, tag);
+    newTag._id = new mongoose.Types.ObjectId;
+    newTag.create_time = new Date;
+    newTag.update_time = new Date;
+    newTag.save(function(err, newTag){
         if(err){
             util.log("FATAL"+err);
             callback({
@@ -41,14 +35,14 @@ exports.create = function(article,callback) {
                     message:err 
                 });
         }else{
-            callback('', newArticle);
+            callback('', newTag);
         }
     });
 
 }
 
 exports.read = function(id, callback){
-    Article.findOne({_id:id},function(err, doc){
+    Tag.findOne({_id:id},function(err, doc){
         if (err) {
             util.log('FATAL '+ err);
             callback({
@@ -62,16 +56,16 @@ exports.read = function(id, callback){
     });
 }
 
-exports.update = function(id, article, callback) {
-    exports.read(id, function(err, oldArticle) {
+exports.update = function(id, tag, callback) {
+    exports.read(id, function(err, oldTag) {
         if (err)
             callback({
                         code:-1,
                         message:err 
                     });
         else {
-            if (oldArticle){
-                oldArticle.update(article, _.extend(article, {update_time: new Date}), function(err, numberAffected, raw) {
+            if (oldTag){
+                oldTag.update(tag, tag, function(err, numberAffected, raw) {
                 //console.log(numberAffected);
                     if (err) {
                         util.log('FATAL '+ err);
@@ -125,32 +119,3 @@ exports.delete = function(id, callback) {
     });
 }
 
-exports.readByCategoryId = function(id, callback){
-    Article.find({"_category_id":id}, null, {sort: {'sort_number': 1}},function(err, docs){
-        if (err) {
-            util.log('FATAL '+ err);
-            callback({
-                    code:-1,
-                    message:err 
-                });
-        }
-        else{
-            callback(null, docs);
-        }
-    });
-}
-
-exports.readByTagId = function(id, callback){
-    Article.find({"_tag_ids":id}, null, {sort: {'sort_number': 1}},function(err, docs){
-        if (err) {
-            util.log('FATAL '+ err);
-            callback({
-                    code:-1,
-                    message:err 
-                });
-        }
-        else{
-            callback(null, docs);
-        }
-    });
-}

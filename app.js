@@ -1,11 +1,14 @@
 var express = require('express')
+  , http = require('http')
   , config = require("./config")
   , bodyParser = require('body-parser')
   , db = require('./dao/db')
   , category = require('./controllers/category')
   , categoryDao = require("./dao/categoryDao")
   , article = require('./controllers/article')
-  , articleDao = require("./dao/articleDao");
+  , articleDao = require("./dao/articleDao")
+  , tag = require('./controllers/tag')
+  , tagDao = require("./dao/tagDao");
 
 
 var app = express();
@@ -37,12 +40,19 @@ app.post('/article/create', article.create);
 app.post('/article/read', article.read);
 app.post('/article/update', article.update);
 app.post('/article/delete', article.delete);
+app.post('/article/readByCategoryId', article.readByCategoryId);
+app.post('/article/readByTagId', article.readByTagId);
 
 app.post('/category/create', category.create);
 app.post('/category/read', category.read);
 app.post('/category/update', category.update);
 app.post('/category/delete', category.delete);
 app.post('/category/readByParentId', category.readByParentId);
+
+app.post('/tag/create', tag.create);
+app.post('/tag/read', tag.read);
+app.post('/tag/update', tag.update);
+app.post('/tag/delete', tag.delete);
 
 db.connect(function(error){
     if (error) throw error;

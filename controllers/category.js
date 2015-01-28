@@ -2,6 +2,7 @@
 
 var config = require('../config');
 var db = require('../dao/categoryDao');
+var consts = require('./const');
 
 
 
@@ -9,10 +10,7 @@ exports.create = function (req, res, next) {
     var category = req.body ? (req.body.category || {}): {};
     if (category._id) {
         res.send({
-                'header':{
-                    'code': 1,
-                    'message': '_id是必须没有的'
-                    }
+                'header':consts.CATEGORY.CREATE.INPUT_ERROR
                 });
     }
     else{
@@ -40,10 +38,7 @@ exports.read = function (req, res, next) {
     var category = req.body ? (req.body.category || {}): {};
     if (!category._id) {
         res.send({
-                'header':{
-                    'code': 1,
-                    'message': '_id是必须的'
-                    }
+                'header':consts.CATEGORY.READ.INPUT_ERROR
                 });
     }
     else{
@@ -71,10 +66,7 @@ exports.update = function (req, res, next) {
     var category = req.body ? (req.body.category || {}): {};
     if (!category._id) {
         res.send({
-                'header':{
-                    'code': 1,
-                    'message': '_id是必须的'
-                    }
+                'header':consts.CATEGORY.UPDATE.INPUT_ERROR
                 });
     }
     else{
@@ -110,10 +102,7 @@ exports.delete = function (req, res, next) {
     var category = req.body ? (req.body.category || {}): {};
     if (!category._id) {
         res.send({
-                'header':{
-                    'code': 1,
-                    'message': '_id是必须的'
-                    }
+                'header':consts.CATEGORY.DELETE.INPUT_ERROR
                 });
     }
     else{
@@ -142,10 +131,7 @@ exports.readByParentId = function (req, res, next) {
     var category = req.body ? (req.body.category || {}): {};
     if (!category._parent_id) {
         res.send({
-                'header':{
-                    'code': 1,
-                    'message': '_parent_id是必须的'
-                    }
+                'header':consts.CATEGORY.READ_BY_PARENT_ID.INPUT_ERROR
                 });
     }
     else{
