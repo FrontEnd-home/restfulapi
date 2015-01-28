@@ -130,11 +130,12 @@ exports.delete = function (req, res, next) {
 exports.readByParentId = function (req, res, next) {
     var category = req.body ? (req.body.category || {}): {};
     if (!category._parent_id) {
-        res.send({
-                'header':consts.CATEGORY.READ_BY_PARENT_ID.INPUT_ERROR
-                });
+        // res.send({
+        //         'header':consts.CATEGORY.READ_BY_PARENT_ID.INPUT_ERROR
+        //         });
+        category._parent_id = '000000000000000000000000';
     }
-    else{
+    //else{
         db.readByParentId(category._parent_id, function (err, rows) {
             if (err) {
                 res.send({
@@ -155,5 +156,5 @@ exports.readByParentId = function (req, res, next) {
         //     'header':{'code': 0}, 
         //     'body':{'category': result}
         //     });
-    }
+    //}
 };
