@@ -30,6 +30,8 @@ exports.create = function(category,callback) {
     newCategory._id = new mongoose.Types.ObjectId;
     newCategory.create_time = new Date;
     newCategory.update_time = new Date;
+    if (!newCategory._parent_id)
+        newCategory._parent_id = '000000000000000000000000';
     newCategory.save(function(err, newCategory){
         if(err){
             util.log("FATAL"+err);
