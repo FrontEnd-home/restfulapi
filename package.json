@@ -6,7 +6,9 @@
     "start": "node app"
   },
   "dependencies": {
+    "body-parser": "^1.10.2",
     "express": "*",
-    "mongoose": "*"
+    "mongoose": "*",
+    "underscore": "^1.7.0"
   }
 }
