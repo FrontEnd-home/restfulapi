@@ -48,6 +48,7 @@ app.post('/category/read', category.read);
 app.post('/category/update', category.update);
 app.post('/category/delete', category.delete);
 app.post('/category/readByParentId', category.readByParentId);
+app.post('/category/readAll', category.readAll);
 
 app.post('/tag/create', tag.create);
 app.post('/tag/read', tag.read);

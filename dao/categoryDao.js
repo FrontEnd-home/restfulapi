@@ -12,6 +12,8 @@ var CategoryScheme = new Schema({
     _parent_id:Schema.Types.ObjectId,
     key:String,
     name:String,
+    slug:String,
+    alias:[String],
     sort_number:Number,
     icon:String,
     is_visible:Boolean,
@@ -128,6 +130,22 @@ exports.delete = function(id, callback) {
 
 exports.readByParentId = function(parentId, callback){
     Category.find({"_parent_id":parentId}, null, {sort: {'sort_number': 1}},function(err, docs){
+        if (err) {
+            util.log('FATAL '+ err);
+            callback({
+                    code:-1,
+                    message:err 
+                });
+        }
+        else{
+            callback(null, docs);
+        }
+    });
+    //return query.exec();
+}
+
+exports.readAll = function(callback){
+    Category.find({}, null, {sort: {'sort_number': 1}},function(err, docs){
         if (err) {
             util.log('FATAL '+ err);
             callback({

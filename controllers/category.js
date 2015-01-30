@@ -158,3 +158,22 @@ exports.readByParentId = function (req, res, next) {
         //     });
     //}
 };
+
+exports.readAll = function(req, res, next){
+    db.readAll(function (err, rows) {
+        if (err) {
+            res.send({
+                'header':{
+                    'code': err.code,
+                    'message': err.message
+                    }
+                });
+        }
+        else{
+            res.send({
+                'header':{'code': 0}, 
+                'body':{'category': rows}
+                });
+        }
+    });
+}
