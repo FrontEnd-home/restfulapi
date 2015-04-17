@@ -16,8 +16,7 @@ var TagScheme = new Schema({
     create_time:Date
 });
 
-mongoose.model('tag', TagScheme);
-var Tag = mongoose.model('tag');
+var Tag = mongoose.model('tag', TagScheme);
 
 
 exports.create = function(tag,callback) {

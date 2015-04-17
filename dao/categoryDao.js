@@ -21,8 +21,7 @@ var CategoryScheme = new Schema({
     create_time:Date
 });
 
-mongoose.model('category', CategoryScheme);
-var Category = mongoose.model('category');
+var Category = mongoose.model('category', CategoryScheme);
 
 
 exports.create = function(category,callback) {

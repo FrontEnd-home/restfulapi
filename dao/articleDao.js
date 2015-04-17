@@ -22,8 +22,7 @@ var ArticleScheme = new Schema({
     update_time:Date
 });
 
-mongoose.model('article', ArticleScheme);
-var Article = mongoose.model('article');
+var Article = mongoose.model('article' ArticleScheme);
 
 
 exports.create = function(article,callback) {
